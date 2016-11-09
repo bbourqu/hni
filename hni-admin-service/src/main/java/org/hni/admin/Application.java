@@ -1,15 +1,15 @@
 package org.hni.admin;
 
-import java.util.Properties;
-
 import javax.ws.rs.ApplicationPath;
 
 import org.apache.commons.lang.StringUtils;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.hni.admin.configuration.AdminConfiguration;
 import org.hni.admin.filter.ResponseCorsFilter;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.ContextLoader;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.Environment;
 
 import io.swagger.jaxrs.config.BeanConfig;
 
@@ -30,13 +30,13 @@ public class Application extends ResourceConfig {
         register(io.swagger.jaxrs.listing.ApiListingResource.class);
         register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
 
-        ApplicationContext rootCtx = ContextLoader.getCurrentWebApplicationContext();
-        Properties myConfiguration = (Properties) rootCtx.getBean("hniProperties");
+        ApplicationContext rootCtx = new AnnotationConfigApplicationContext(AdminConfiguration.class);
+        Environment environment = rootCtx.getBean(Environment.class);
         
-        String host = StringUtils.defaultIfBlank(myConfiguration.getProperty("swagger.host"), DEFAULT_HOST);
-        String version = StringUtils.defaultIfBlank(myConfiguration.getProperty("swagger.version"), DEFAULT_VERSION);
-        String basePath = StringUtils.defaultIfBlank(myConfiguration.getProperty("swagger.basePath"), DEFAULT_BASEPATH);
-        String scheme = StringUtils.defaultIfBlank(myConfiguration.getProperty("swagger.scheme"), DEFAULT_SCHEME);
+        String host = StringUtils.defaultIfBlank(environment.getProperty("swagger.host"), DEFAULT_HOST);
+        String version = StringUtils.defaultIfBlank(environment.getProperty("swagger.version"), DEFAULT_VERSION);
+        String basePath = StringUtils.defaultIfBlank(environment.getProperty("swagger.basePath"), DEFAULT_BASEPATH);
+        String scheme = StringUtils.defaultIfBlank(environment.getProperty("swagger.scheme"), DEFAULT_SCHEME);
  
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion(version);
@@ -45,6 +45,5 @@ public class Application extends ResourceConfig {
         beanConfig.setBasePath(basePath);
         beanConfig.setResourcePackage(DEFAULT_RESOURCE_PACKAGE);
         beanConfig.setScan(true);
-     
     }
 }
