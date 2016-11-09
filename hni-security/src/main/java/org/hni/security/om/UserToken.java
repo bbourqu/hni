@@ -1,81 +1,51 @@
 package org.hni.security.om;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+public class UserToken {
+	private String userIdentifier;
+	private Long organiationId;
+	private Long createTime;
+	private Long expirationTime;
+	private List<Permission> permissions;
 
-import org.apache.commons.codec.binary.Base64;
-import org.hni.common.om.Persistable;
-
-/**
- * Represents a permission (ability for a user to perform a given action). These
- * are linked to users in organizations via roles.
- */
-@Entity
-@Table(name = "user_token")
-public class UserToken implements Persistable, Serializable {
-	private static final int TOKEN_LENGTH = 30;
-	private static final long serialVersionUID = -5344420286199389049L;
-
-	@EmbeddedId
-	private UserTokenPK id;
-
-	@Column(name = "user_id")
-	private Long userId;
-
-	@Column(name = "created")
-	private Date created;
-
-	public UserToken() {
+	public Long getOrganiationId() {
+		return organiationId;
 	}
 
-	public UserToken(Long userId) {
-		this.userId = userId;
-		/*
-		 * create a token.
-		 * 
-		 * TODO: may want to check to make sure a token with this value doesn't
-		 * already exist for another user. This is a minimal probability.
-		 */
-		this.id = new UserTokenPK();
-		this.id.setToken(Base64.encodeBase64String(org.apache.commons.lang3.RandomStringUtils.random(TOKEN_LENGTH).getBytes()));
-		this.created = new Date();
+	public void setOrganiationId(Long organiationId) {
+		this.organiationId = organiationId;
 	}
 
-	public static UserToken get(Long id) {
-		return new UserToken(id);
+	public Long getCreateTime() {
+		return createTime;
 	}
 
-	public Long getUserId() {
-		return this.userId;
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public Long getExpirationTime() {
+		return expirationTime;
 	}
 
-	public Date getCreated() {
-		return created;
+	public void setExpirationTime(Long expirationTime) {
+		this.expirationTime = expirationTime;
 	}
 
-	public void setCreated(Date created) {
-		this.created = created;
+	public List<Permission> getPermissions() {
+		return permissions;
 	}
 
-	@Override
-	public UserTokenPK getId() {
-		return id;
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
 	}
 
-	public void setId(UserTokenPK id) {
-		this.id = id;
+	public String getUserIdentifier() {
+		return userIdentifier;
 	}
 
-	public String getToken() {
-		return getId().getToken();
+	public void setUserIdentifier(String userIdentifier) {
+		this.userIdentifier = userIdentifier;
 	}
 }

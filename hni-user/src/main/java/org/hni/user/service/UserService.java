@@ -11,5 +11,5 @@ public interface UserService extends BaseService<User> {
 
 	List<User> byLastName(String lastName);
 
-	List<User> byEmailAddress(String emailAddress);
+	User byEmailAddress(String emailAddress);
 }

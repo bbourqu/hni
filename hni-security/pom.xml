@@ -1,24 +1,41 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.hni</groupId>
-    <artifactId>hni-db-parent</artifactId>
-    <version>1.0</version>
-    <relativePath>../hni-db-parent/pom.xml</relativePath>
-  </parent>
-  <artifactId>hni-security</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>hni-security</name>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.hni</groupId>
+		<artifactId>hni-db-parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../hni-db-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>hni-security</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>hni-security</name>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
 		<dependency>
 			<groupId>org.hni</groupId>
 			<artifactId>hni-organization</artifactId>
 			<version>${project.version}</version>
-		</dependency>  
-  </dependencies>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${org.apache.shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+	</dependencies>
 </project>

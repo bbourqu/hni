@@ -32,14 +32,7 @@ public interface UserSecurityService {
 	 * authorize user based on token.
 	 * 
 	 * @param token
-	 * @return Set<OrganizationUserPermission>
+	 * @return List<OrganizationUserPermission>
 	 */
 	Set<OrganizationUserPermission> authorize(String token);
-
-	/**
-	 * clean up tokens older than this many milliseconds
-	 * 
-	 * @param millisecondsBack
-	 */
-	void cleanupExpiredTokens(long millisecondsBack);
 }

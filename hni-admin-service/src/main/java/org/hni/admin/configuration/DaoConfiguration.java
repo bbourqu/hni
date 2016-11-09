@@ -15,9 +15,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-@Configuration
-@EnableTransactionManagement
-@Profile({ "production", "localdev", "remotedev", "integration" })
+//@Configuration
+//@EnableTransactionManagement
+//@Profile({ "production", "localdev", "remotedev", "integration" })
 public class DaoConfiguration implements TransactionManagementConfigurer,ApplicationContextAware {
 	
 

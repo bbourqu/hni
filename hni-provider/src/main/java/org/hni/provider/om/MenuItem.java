@@ -45,6 +45,12 @@ public class MenuItem implements Persistable, Serializable {
 	public MenuItem(Long id) {
 		this.id = id;
 	}
+	public MenuItem(String name, String description, Double price, Date expires) {
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.expires = expires;
+	}
 	
 	@Override
 	public Object getId() {

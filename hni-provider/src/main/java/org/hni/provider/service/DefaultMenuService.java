@@ -25,7 +25,7 @@ public class DefaultMenuService extends AbstractService<Menu> implements MenuSer
 	}
 
 	@Override
-	public Collection<Menu> get(Provider provider) {
+	public Collection<Menu> with(Provider provider) {
 		return menuDao.get(provider);
 	}
 

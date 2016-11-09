@@ -38,6 +38,18 @@ public class Address implements Persistable, Serializable {
 	@Column(name="longitude") private String longitude;
 	@Column(name="latitude") private String latitude;
 	
+	public Address() {}
+	public Address(Long id) {
+		this.id = id;
+	}
+	public Address(String address1, String address2, String city, String state, String zip) {
+		this.address1 = address1;
+		this.address2 = address2;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
+	
 	public Long getId() {
 		return id;
 	}

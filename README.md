@@ -1,6 +1,18 @@
 [![Build Status](https://travis-ci.org/hungernotimpossible/hni.svg?branch=master)](https://travis-ci.org/hungernotimpossible/hni)
 # Hunger: not Impossible
 
+## Summary
+
+The objective of this project is to connect hungry people in need with a meal provided by any number of restaurants or other organizations.
+
+### How does it work? ###
+
+Organizations who already service people in need help them sign up and register for the service.  This is accomplished with their mobile phone through an SMS gateway.  Yes, the US government provides mobile devices to people of need -- many of them use temporary cell phones.  
+
+Once the account is established they can send a text the shortcode to start an order.  A few questions and text messages later they will have created an order and received instructions on how and where to pick it up.
+
+On the backend we employ volunteers through various organizations and automation to fulfill and pay for the order at a local restaurant.  Through the user interface a volunteer is given an order to place and a secured, tracked and audited method to pay for it.  When the order placement is complete the volunteer simply moves on to the next order for fulfillment.  There is a desire to be able to begin fulfilling orders in a more automated fashion in the future without human efforts.
+
 ## Recognizing the Absurd
 
 48 million Americans struggle to put food on the table every day.

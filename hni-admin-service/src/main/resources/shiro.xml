@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+                xmlns:p="http://www.springframework.org/schema/p"
+                xmlns:mvc="http://www.springframework.org/schema/mvc"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:aop="http://www.springframework.org/schema/aop"
+                xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+                xmlns:tx="http://www.springframework.org/schema/tx"
+                xmlns:context="http://www.springframework.org/schema/context"
+                xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+               http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context-3.0.xsd
+               http://www.springframework.org/schema/aop
+               http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/data/jpa
+           http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+               http://www.springframework.org/schema/tx
+               http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+		<bean id="pageTimerFilter" class="org.hni.admin.filter.PageTimerFilter"/>
+		<bean id="validTokenFilter" class="org.hni.admin.filter.ValidTokenFilter"/>
+		<bean id="jwtAuthc" class="org.hni.admin.filter.JWTTokenAuthenticatingFilter"/>
+		
+        <bean id="springFilters" class="org.springframework.web.filter.CompositeFilter">
+                <property name="filters">
+                        <list>
+                                <!-- Provides our security layer and enforces logins for pages mapped to this context (/sm) -->
+                                <ref bean="shiroFilter"/>
+                                <!-- Adds user information to the log4j context. Must run AFTER the Shiro filter -->
+                                <!-- ref bean="mdcFilter"/>  -->
+                                <!-- Provides timing for pages mapped to this context (/sm) -->
+                                <ref bean="pageTimerFilter"/>
+                        </list>
+                </property>
+        </bean>
+        <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+                <property name="securityManager" ref="securityManager" />
+                <property name="unauthorizedUrl" value="/api/v1/security/noaccess" />
+                <property name="loginUrl" value="/api/v1/security/loginrequired" />
+                <property name="successUrl" value="/security/userinfo" />
+                <property name="filterChainDefinitions">
+                        <value>
+                        		/api/v1/security/authentication = anon
+                                /api/v1/security/loginrequired = anon                           
+                                /api/v1/** = jwtAuthc, validTokenFilter <!-- ssl, noSessionCreation,  ALL other urls to require a valid token -->
+                                /** = authc  <!-- open access to non-service things -->
+                        </value>
+                </property>
+        </bean>
+        	
+        <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+                <property name="realms">
+                        <set>
+                        		<ref bean="passwordRealm"/>
+                                <ref bean="tokenRealm"/>
+                        </set>
+                </property>
+                <!-- 
+                <property name="sessionManager" ref="sessionManager" />
+                <property name="cacheManager" ref="cacheManagerShiro" />
+                 -->
+        </bean>
+
+        <bean id="credentialsMatcher"
+                class="org.apache.shiro.authc.credential.Sha256CredentialsMatcher">
+                <property name="storedCredentialsHexEncoded" value="false" />
+                <property name="hashIterations" value="1024" />
+        </bean>
+   
+        <bean id="passwordRealm" class="org.hni.security.realm.PasswordRealm">
+                <property name="credentialsMatcher" ref="credentialsMatcher" />
+        </bean>        
+
+		<bean id="tokenCredentialsMatcher" class="org.hni.security.realm.token.TokenCredentialsMatcher"/>  
+        <bean id="tokenRealm" class="org.hni.security.realm.TokenRealm">
+                <property name="credentialsMatcher" ref="tokenCredentialsMatcher" />
+        </bean>        
+
+
+</beans>

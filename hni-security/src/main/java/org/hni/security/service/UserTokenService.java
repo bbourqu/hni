@@ -1,14 +1,10 @@
 package org.hni.security.service;
 
-import java.util.Date;
-import java.util.List;
-
-import org.hni.common.service.BaseService;
-import org.hni.security.om.UserToken;
+import org.hni.security.om.AuthorizedUser;
 import org.hni.user.om.User;
 
-public interface UserTokenService extends BaseService<UserToken> {
-	List<User> byToken(String token);
+public interface UserTokenService {
+	String getUserToke(User user, Long organizationId);
 
-	void deleteTokensOlderThan(Date date);
+	AuthorizedUser getTokenUser(String token);
 }

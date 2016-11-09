@@ -22,7 +22,7 @@ public class DefaultMenuDAO extends AbstractDAO<Menu> implements MenuDAO {
 	public Collection<Menu> get(Provider provider) {
 		try {
 			Query q = em.createQuery("SELECT x FROM Menu x WHERE x.provider.id = :providerId")
-				.setParameter("userId", provider.getId());
+				.setParameter("providerId", provider.getId());
 			return q.getResultList();
 		} catch(NoResultException e) {
 			return Collections.emptyList();

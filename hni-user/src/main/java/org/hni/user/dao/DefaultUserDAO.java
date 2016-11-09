@@ -41,12 +41,12 @@ public class DefaultUserDAO extends AbstractDAO<User> implements UserDAO {
 	}
 
 	@Override
-	public List<User> byEmailAddress(String email) {
+	public User byEmailAddress(String email) {
 		try {
 			Query q = em.createQuery("SELECT x FROM User x WHERE x.email = :email").setParameter("email", email);
-			return q.getResultList();
+			return (User) q.getSingleResult();
 		} catch (NoResultException e) {
-			return Collections.emptyList();
+			return null;
 		}
 	}
 }

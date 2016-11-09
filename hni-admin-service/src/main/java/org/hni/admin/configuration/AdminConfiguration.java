@@ -24,9 +24,9 @@ import com.zaxxer.hikari.HikariDataSource;
  * the servlet container e.g. -Dspring.profiles.active=local-dev
  * 
  */
-@Configuration
-@ComponentScan("org.hni")
-@Import(DaoConfiguration.class)
+//@Configuration
+//@ComponentScan("org.hni")
+//@Import(DaoConfiguration.class)
 public class AdminConfiguration implements ApplicationContextAware  {
 
 	private ApplicationContext applicationContext;

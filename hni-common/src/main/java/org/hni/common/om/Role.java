@@ -18,7 +18,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="roles")
+@Table(name="security_roles")
 public class Role implements Persistable, Serializable {
 
 	private static final long serialVersionUID = -5344420286199389049L;

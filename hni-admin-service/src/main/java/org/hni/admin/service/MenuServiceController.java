@@ -71,9 +71,8 @@ public class MenuServiceController {
 	, notes = ""
 	, response = Menu.class
 	, responseContainer = "")
-	public Collection<Menu> getMenus(@PathParam("id") Long id) {
-		
-		return menuService.get(new Provider(id));
+	public Collection<Menu> getMenus(@PathParam("id") Long id) {		
+		return menuService.with(new Provider(id));
 	}
 
 	@POST

@@ -2,14 +2,16 @@ package org.hni.security.om;
 
 import java.io.Serializable;
 
-public class OrganizationUserPermission implements Serializable, Comparable<OrganizationUserPermission> {
+public class OrganizationUserPermission implements Serializable {
 	/**
 	 * guid
 	 */
 	private static final long serialVersionUID = -6914706948758886883L;
 	private Long organizationId;
 	private Long userId;
-	private Long permissionId;
+	private String permissionDomain;
+	private String permission;
+	private String permissionInstance;
 	private String permissionName;
 
 	public Long getOrganizationId() {
@@ -28,14 +30,6 @@ public class OrganizationUserPermission implements Serializable, Comparable<Orga
 		this.userId = userId;
 	}
 
-	public Long getPermissionId() {
-		return permissionId;
-	}
-
-	public void setPermissionId(Long permissionId) {
-		this.permissionId = permissionId;
-	}
-
 	public String getPermissionName() {
 		return permissionName;
 	}
@@ -44,17 +38,28 @@ public class OrganizationUserPermission implements Serializable, Comparable<Orga
 		this.permissionName = permissionName;
 	}
 
-	@Override
-	public int compareTo(OrganizationUserPermission o) {
-
-		if (0 == this.getOrganizationId().compareTo(o.getOrganizationId())) {
-			if (0 == this.getUserId().compareTo(o.getUserId())) {
-				return this.getPermissionId().compareTo(o.getPermissionId());
-			} else {
-				return this.getUserId().compareTo(o.getUserId());
-			}
-		} else {
-			return this.getOrganizationId().compareTo(o.getOrganizationId());
-		}
+	public String getPermissionDomain() {
+		return permissionDomain;
 	}
+
+	public void setPermissionDomain(String permissionDomain) {
+		this.permissionDomain = permissionDomain;
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+
+	public String getPermissionInstance() {
+		return permissionInstance;
+	}
+
+	public void setPermissionInstance(String permissionInstance) {
+		this.permissionInstance = permissionInstance;
+	}
+
 }

@@ -11,5 +11,5 @@ public interface UserDAO extends BaseDAO<User> {
 
 	List<User> byLastName(String lastName);
 
-	List<User> byEmailAddress(String emailAddress);
+	User byEmailAddress(String emailAddress);
 }

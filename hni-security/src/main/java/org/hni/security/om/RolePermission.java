@@ -2,6 +2,7 @@ package org.hni.security.om;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,7 +14,7 @@ import org.hni.common.om.Persistable;
  * are linked to users in organizations via roles.
  */
 @Entity
-@Table(name = "role_permissions")
+@Table(name = "security_role_permissions")
 public class RolePermission implements Persistable, Serializable {
 	/*
 	 * TODO: later ieration can be concerned about who changed which role
@@ -23,6 +24,8 @@ public class RolePermission implements Persistable, Serializable {
 	@EmbeddedId
 	private RolePermissionPK id;
 
+	@Column(name="all_instances") private boolean allInstances;
+	
 	public RolePermission() {
 	}
 
@@ -42,4 +45,14 @@ public class RolePermission implements Persistable, Serializable {
 	public void setId(RolePermissionPK id) {
 		this.id = id;
 	}
+
+	public boolean isAllInstances() {
+		return allInstances;
+	}
+
+	public void setAllInstances(boolean allInstances) {
+		this.allInstances = allInstances;
+	}
+	
+	
 }

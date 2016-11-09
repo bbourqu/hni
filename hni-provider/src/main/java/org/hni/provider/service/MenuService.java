@@ -13,5 +13,5 @@ public interface MenuService extends BaseService<Menu> {
 	 * @param provider
 	 * @return
 	 */
-	Collection<Menu> get(Provider provider);
+	Collection<Menu> with(Provider provider);
 }

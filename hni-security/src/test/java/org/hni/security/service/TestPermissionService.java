@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import org.apache.log4j.BasicConfigurator;
 import org.hni.security.om.Permission;
-import org.hni.security.service.PermissionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,18 +28,20 @@ public class TestPermissionService {
 
 	@Test
 	public void testGet() {
-		Permission permission = permissionService.get(1L);
-		assertEquals("Create Organization", permission.getName());
+		Permission permission = permissionService.get(11L);
+		assertEquals("organizations", permission.getDomain());
+		assertEquals("create", permission.getValue());
+		//assertNull(permission.getInstance());
 	}
 
 	@Test
 	public void testUpdate() {
 		Permission permission = permissionService.get(1L);
-		String updatedName = "Create Org";
-		permission.setName(updatedName);
+		String updatedName = "blah";
+		permission.setDomain(updatedName);
 		permissionService.update(permission);
 		Permission updatedPermission = permissionService.get(1L);
-		assertEquals(updatedName, updatedPermission.getName());
+		assertEquals(updatedName, updatedPermission.getDomain());
 	}
 
 	@Test
@@ -54,10 +55,13 @@ public class TestPermissionService {
 	@Test
 	public void testInsert() {
 		Permission permission = new Permission();
-		String insertedName = "Ad Hoc Permission";
-		permission.setName(insertedName);
+		String insertedName = "ad hoc domain";
+		String insertPermission = "create";
+		permission.setDomain(insertedName);
+		permission.setValue(insertPermission);
 		Permission insertedPermission = permissionService.insert(permission);
-		assertEquals(insertedName, insertedPermission.getName());
+		assertEquals(insertedName, insertedPermission.getDomain());
+		assertEquals(insertPermission, insertedPermission.getValue());
 		assertTrue(insertedPermission.getId() > 64);
 	}
 }
